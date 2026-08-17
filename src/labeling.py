@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from collections import Counter
 
-plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['font.sans-serif'] = ['Microsoft YaHei', 'SimHei', 'PingFang SC', 'Noto Sans CJK SC', 'Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
 
 

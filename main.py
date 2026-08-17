@@ -1,5 +1,8 @@
 # 用户分层 + 产品关联分析主流程
 # 跑之前先执行 src/data/generate_sample_data.py 生成数据
+import os
+import matplotlib
+matplotlib.use("Agg")  # 不弹窗，直接出图
 import matplotlib.pyplot as plt
 
 from src.data_loader import load_data
@@ -13,8 +16,25 @@ from src.labeling import (
 )
 from src.association import analyze_product_associations_simple
 
-plt.rcParams["font.sans-serif"] = ["SimHei"]
+# 中文字体：按系统常见字体依次尝试
+plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei", "PingFang SC",
+                                   "Noto Sans CJK SC", "Arial Unicode MS"]
 plt.rcParams["axes.unicode_minus"] = False
+
+# 运行时把 plt.show() 改成"存图到 report/figures 再关闭"，避免弹窗卡住
+_FIG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "report", "figures")
+os.makedirs(_FIG_DIR, exist_ok=True)
+_fig_no = [0]
+
+
+def _save_instead_of_show(*args, **kwargs):
+    _fig_no[0] += 1
+    plt.gcf().savefig(os.path.join(_FIG_DIR, f"run_{_fig_no[0]:02d}.png"),
+                      dpi=120, bbox_inches="tight")
+    plt.close("all")
+
+
+plt.show = _save_instead_of_show
 
 
 def main():

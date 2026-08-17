@@ -1,11 +1,16 @@
 # 行为路径挖掘：找长度>=3 的高频路径
 import numpy as np
 import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from collections import Counter, defaultdict
 
-plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['font.sans-serif'] = ['Microsoft YaHei', 'SimHei', 'PingFang SC',
+                                   'Noto Sans CJK SC', 'Arial Unicode MS']
 plt.rcParams['axes.unicode_minus'] = False
+plt.show = lambda *a, **k: plt.savefig("report/figures/path_pattern.png",
+                                       dpi=120, bbox_inches="tight")
 
 
 def build_demo_sequences(csv_path="./data/sample_user_behavior.csv"):
