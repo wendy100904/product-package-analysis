@@ -4,6 +4,11 @@
 |---|---|
 | [`analysis_report.md`](./analysis_report.md) | **主报告**：金字塔叙事（价值主张 → 3 个核心洞察 → 落地 SOP → 方法论 → 附录） |
 | [`appendix_rules.md`](./appendix_rules.md) | 附录 A：45 条关联规则明细（脱敏，按提升度降序） |
+| [`figures/`](./figures) | 图表：肘部法则、用户分层、关联热力图、产品组合、转移概率（代号化，可安全公开） |
+
+## 图表说明
+
+`figures/` 下所有图表均由 [`src/generate_charts.py`](../src/generate_charts.py) 基于仓库内**脱敏模拟数据**重新生成，产品名全部代号化，与报告口径一致。原始生产报告中的图表（含真实产品名与精确数值）未纳入本仓库。复现：`python src/data/generate_sample_data.py && python src/generate_charts.py`
 
 ## 脱敏说明
 
