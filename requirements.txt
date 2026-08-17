@@ -3,5 +3,6 @@ numpy>=1.21
 scikit-learn>=1.0
 matplotlib>=3.4
 seaborn>=0.11
+plotly>=5.0
 # 可选：仅生产环境从 Spark/Hive 读数时需要
 # pyspark>=3.2

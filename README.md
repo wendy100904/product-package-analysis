@@ -8,6 +8,10 @@
 
 做法是 K-Means 聚类分群 + 关联规则（支持度/置信度/提升度）+ 行为路径挖掘。
 
+![业务概览看板](./report/figures/00_dashboard.png)
+
+> 上图为业务概览看板；交互式版本见 [`report/dashboard.html`](./report/dashboard.html)（下载后用浏览器打开，可悬停查看具体数值）。
+
 ## 思路
 
 ```
@@ -40,9 +44,11 @@
 │   ├── association.py               # 关联规则
 │   ├── path_analysis.py             # 路径挖掘
 │   ├── generate_charts.py           # 画图
+│   ├── dashboard.py                 # 业务概览看板（静态大图 + 交互HTML）
+│   ├── dashboard_interactive.py     # 交互式看板(Plotly)
 │   └── data/
 │       └── generate_sample_data.py  # 生成测试数据
-└── report/                          # 报告和图表
+└── report/                          # 报告、图表、看板
 ```
 
 > 生产环境用的是 Hive 表，这里放的是脚本生成的测试数据，方便直接把流程跑起来。产品名用了代号（沟通类/触达类/推广类/增值类/功能类），数字也换成了占比。
@@ -54,6 +60,7 @@ pip install -r requirements.txt
 python src/data/generate_sample_data.py   # 生成测试数据
 python main.py                            # 跑分析
 python src/generate_charts.py             # 画图
+python src/dashboard.py                   # 生成业务概览看板（PNG + 交互HTML）
 ```
 
 生产环境换数据源：`export SOURCE_TABLE=表名` 或 `export ANALYTICS_DATA_PATH=xxx.csv`。
