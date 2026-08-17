@@ -9,13 +9,18 @@ from matplotlib import font_manager
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 
-# ---- 中文字体（系统自带 Noto Sans CJK） ----
+# ---- 中文字体：先试沙箱自带的，找不到就用系统常见中文字体 ----
+_found = False
 for fp in ["/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
            os.path.expanduser("~/.fonts/NotoSansCJK.ttc")]:
     if os.path.exists(fp):
         font_manager.fontManager.addfont(fp)
         plt.rcParams["font.sans-serif"] = [font_manager.FontProperties(fname=fp).get_name()]
+        _found = True
         break
+if not _found:
+    plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei", "PingFang SC",
+                                       "Noto Sans CJK SC", "Arial Unicode MS"]
 plt.rcParams["axes.unicode_minus"] = False
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -84,15 +89,16 @@ def fig_assoc_heatmap(df):
         conf = c / upc[a]
         lift = conf / (upc[b] / total)
         mat.loc[a, b] = mat.loc[b, a] = round(lift, 2)
-    np.fill_diagonal(mat.values, 1.0)
+    arr = mat.to_numpy(dtype=float).copy()
+    np.fill_diagonal(arr, 1.0)
     plt.figure(figsize=(9, 7.5))
-    im = plt.imshow(mat.values, cmap="RdYlBu_r", vmin=0.6, vmax=1.4)
+    im = plt.imshow(arr, cmap="RdYlBu_r", vmin=0.6, vmax=1.4)
     plt.colorbar(im, label="提升度 (Lift)", shrink=.8)
     plt.xticks(range(len(prods)), prods, rotation=45, ha="right")
     plt.yticks(range(len(prods)), prods)
     for i in range(len(prods)):
         for j in range(len(prods)):
-            plt.text(j, i, f"{mat.values[i,j]:.2f}", ha="center", va="center", fontsize=7)
+            plt.text(j, i, f"{arr[i, j]:.2f}", ha="center", va="center", fontsize=7)
     plt.title("产品关联分析热力图（提升度）"); plt.tight_layout()
     plt.savefig(f"{OUT}/03_assoc_heatmap.png", dpi=130); plt.close()
 
