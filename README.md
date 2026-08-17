@@ -58,6 +58,8 @@ python src/generate_charts.py             # 画图
 
 生产环境换数据源：`export SOURCE_TABLE=表名` 或 `export ANALYTICS_DATA_PATH=xxx.csv`。
 
+本地跑不用装 PySpark，默认读 `data/` 下的 csv，只有连生产 Hive 时才会用到 Spark。图里的中文需要机器装了中文字体才能正常显示。
+
 ## 用到的
 
 Python · PySpark(取数) · pandas · numpy · scikit-learn(KMeans / PCA) · matplotlib · seaborn
