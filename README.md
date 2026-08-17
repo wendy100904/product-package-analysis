@@ -61,3 +61,7 @@ python src/generate_charts.py             # 画图
 ## 用到的
 
 Python · PySpark(取数) · pandas · numpy · scikit-learn(KMeans / PCA) · matplotlib · seaborn
+
+## 说明
+
+代码和报告仅用于展示分析思路和方法。出于数据安全和保密协议（NDA）要求，原始生产数据未包含在内，仓库里放的是脚本生成的测试数据；产品名做了代号化，涉及的业务数字用占比替代，不含任何未公开的商业信息。
