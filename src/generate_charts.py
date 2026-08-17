@@ -1,14 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-作品集图表生成脚本（脱敏版）
-============================
-基于仓库内的脱敏模拟数据（data/sample_user_behavior.csv）复现报告核心图表，
-产品名全部代号化，可安全公开。图表输出到 report/figures/*.png。
-
-用法:
-    python src/data/generate_sample_data.py   # 先生成数据
-    python src/generate_charts.py
-"""
+# 画报告里的几张图
 import os
 import numpy as np
 import pandas as pd

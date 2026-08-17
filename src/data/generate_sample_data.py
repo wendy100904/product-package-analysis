@@ -1,16 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-脱敏模拟数据生成脚本（Synthetic Dataset）
-========================================
-生成一份结构与生产数据完全一致、但内容完全随机的示例数据，
-使任何人 clone 仓库后都能直接跑通 K-Means 聚类与产品关联分析。
-
-数据零泄密：所有 ID 为随机生成的伪 ID，主体名称均为代号（Company_*, City_Tier_*）。
-
-用法:
-    python src/data/generate_sample_data.py
-    # 输出 -> data/sample_user_behavior.csv
-"""
+# 造一批测试用的假数据，跑通整套流程用
 import os
 import numpy as np
 import pandas as pd
@@ -32,8 +20,7 @@ COMPANY_SCALES = ["1-49人", "50-99人", "100-499人", "500-999人",
 JOB_TITLES = ["销售", "研发", "运营", "市场", "客服", "行政", "财务", "产品"]
 
 
-def pseudo_id(prefix, i):
-    """生成伪 ID（不含任何真实标识）。"""
+def make_id(prefix, i):
     return f"{prefix}_{i:06d}"
 
 
@@ -41,9 +28,8 @@ def gen():
     rows = []
     base = pd.Timestamp("2026-01-01")
     for u in range(N_USERS):
-        uid = pseudo_id("USR", u)
+        uid = make_id("USR", u)
         n_events = np.random.randint(1, MAX_EVENTS_PER_USER)
-        # 用户级属性（同一用户保持一致）
         city = np.random.choice(CITY_TIERS)
         org = np.random.choice(ORG_TYPES, p=[0.25, 0.75])
         scale = np.random.choice(COMPANY_SCALES)
@@ -56,10 +42,10 @@ def gen():
             rows.append({
                 "user_id": uid,
                 "active_user_id": uid if active else np.nan,
-                "job_post_user_id": uid if prod == "职位发布" else np.nan,
-                "search_user_id": uid if prod == "简历搜索" else np.nan,
-                "chat_user_id": uid if prod == "在线沟通" else np.nan,
-                "resume_view_user_id": uid if prod == "简历查看" else np.nan,
+                "job_post_user_id": uid if prod == "触达类A" else np.nan,
+                "search_user_id": uid if prod == "功能类A" else np.nan,
+                "chat_user_id": uid if prod in ("沟通类A", "沟通类B", "沟通类C") else np.nan,
+                "resume_view_user_id": uid if prod == "增值类B" else np.nan,
                 "event_date": dt.strftime("%Y-%m-%d"),
                 "stat_date": dt.strftime("%Y-%m-%d"),
                 "publish_date": dt.strftime("%Y-%m-%d"),
@@ -82,5 +68,5 @@ if __name__ == "__main__":
     out_path = os.path.join(out_dir, "sample_user_behavior.csv")
     df = gen()
     df.to_csv(out_path, index=False, encoding="utf-8-sig")
-    print(f"已生成脱敏示例数据: {out_path}")
+    print(f"已生成: {out_path}")
     print(f"形状: {df.shape}, 用户数: {df['user_id'].nunique()}")

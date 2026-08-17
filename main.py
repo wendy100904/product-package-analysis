@@ -1,14 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-B 端招聘平台用户分层与产品偏好分析 —— 主编排入口（脱敏作品集版）
-=================================================================
-流程: 数据加载 -> 预处理 -> 特征工程 -> K-Means 聚类 -> 聚类分析
-      -> 用户标签系统 -> 产品关联分析 -> 分聚类产品偏好 -> 导出报告
-
-运行:
-    python src/data/generate_sample_data.py   # 先生成脱敏示例数据
-    python main.py
-"""
+# 用户分层 + 产品关联分析主流程
+# 跑之前先执行 src/data/generate_sample_data.py 生成数据
 import matplotlib.pyplot as plt
 
 from src.data_loader import load_data
@@ -32,7 +23,7 @@ def main():
     print("=" * 80)
 
     try:
-        # 1. 加载数据（脱敏示例数据或生产 Spark）
+        # 1. 加载数据
         df = load_data()
 
         # 2. 数据预处理

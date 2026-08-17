@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-"""数据预处理与特征工程模块（脱敏版）。"""
+# 数据预处理 + 特征工程
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler

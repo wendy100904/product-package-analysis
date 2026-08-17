@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-"""产品关联分析模块：共现 / 支持度-置信度-提升度（Apriori 思想）+ 路径模式挖掘（脱敏版）。"""
+# 产品关联：共现 + 支持度/置信度/提升度
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

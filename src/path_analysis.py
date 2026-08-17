@@ -1,19 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-用户行为路径模式挖掘（可选模块，脱敏版）
-======================================
-从用户行为序列中挖掘长度 >=3 的高频路径模式，按用户覆盖率排序。
-
-输入 user_sequences 结构（每个用户一条）:
-    [
-        {"user_id": "USR_000001",
-         "sequence": ["职位发布", "简历搜索", "在线沟通", ...],
-         "length": 8},
-        ...
-    ]
-生产环境中该序列由用户行为日志按时间排序聚合得到；作品集中可用
-build_demo_sequences() 从示例数据构造，保证脚本可独立运行。
-"""
+# 行为路径挖掘：找长度>=3 的高频路径
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -24,7 +9,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 
 def build_demo_sequences(csv_path="./data/sample_user_behavior.csv"):
-    """从脱敏示例数据构造用户行为序列，便于独立复现。"""
+    """从示例数据构造用户行为序列"""
     df = pd.read_csv(csv_path)
     df = df.sort_values(["user_id", "event_date"])
     seqs = []

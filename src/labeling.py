@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-"""用户标签系统模块：聚类命名 + 业务标签 + 聚类摘要与特征输出（脱敏版）。"""
+# 用户打标签 + 聚类画像输出
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,19 +1,11 @@
-# 分析报告目录
+# 报告
 
 | 文件 | 内容 |
 |---|---|
-| [`analysis_report.md`](./analysis_report.md) | **主报告**：金字塔叙事（价值主张 → 3 个核心洞察 → 落地 SOP → 方法论 → 附录） |
-| [`appendix_rules.md`](./appendix_rules.md) | 附录 A：45 条关联规则明细（脱敏，按提升度降序） |
-| [`figures/`](./figures) | 图表：肘部法则、用户分层、关联热力图、产品组合、转移概率（代号化，可安全公开） |
+| [`analysis_report.md`](./analysis_report.md) | 分析报告：分层 / 关联 / 路径 / 建议 |
+| [`appendix_rules.md`](./appendix_rules.md) | 45 条关联规则明细，按提升度排序 |
+| [`figures/`](./figures) | 图表 |
 
-## 图表说明
+`figures/` 里的图由 [`src/generate_charts.py`](../src/generate_charts.py) 生成。产品名用代号（沟通类/触达类/推广类/增值类/功能类），数字用占比。
 
-`figures/` 下所有图表均由 [`src/generate_charts.py`](../src/generate_charts.py) 基于仓库内**脱敏模拟数据**重新生成，产品名全部代号化，与报告口径一致。原始生产报告中的图表（含真实产品名与精确数值）未纳入本仓库。复现：`python src/data/generate_sample_data.py && python src/generate_charts.py`
-
-## 脱敏说明
-
-- 所有真实产品名已代号化：沟通类 / 触达类 / 推广类 / 增值类 / 功能类。
-- 敏感绝对数值（客户总数、共现用户数、GMV 口径等）已模糊化，仅保留占比与趋势。
-- 不涉及原公司任何未公开商业机密，符合 NDA 要求。
-
-运行 `python main.py` 生成的 `cluster_characteristics_report.csv` 可作为结论支撑一并归档。
+重新生成：`python src/data/generate_sample_data.py && python src/generate_charts.py`

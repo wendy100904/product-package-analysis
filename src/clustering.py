@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-"""用户分层聚类模块：肘部法则自动选 K + K-Means + PCA 可视化（脱敏版）。"""
+# K-Means 聚类，肘部法则选 K，PCA 画图
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
