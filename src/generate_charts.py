@@ -9,18 +9,31 @@ from matplotlib import font_manager
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 
-# ---- 中文字体：先试沙箱自带的，找不到就用系统常见中文字体 ----
-_found = False
-for fp in ["/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
-           os.path.expanduser("~/.fonts/NotoSansCJK.ttc")]:
-    if os.path.exists(fp):
-        font_manager.fontManager.addfont(fp)
-        plt.rcParams["font.sans-serif"] = [font_manager.FontProperties(fname=fp).get_name()]
-        _found = True
-        break
-if not _found:
-    plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei", "PingFang SC",
-                                       "Noto Sans CJK SC", "Arial Unicode MS"]
+# ---- 中文字体：直接找系统里的中文字体文件并注册，避免中文变方框 ----
+def _setup_cjk_font():
+    candidates = [
+        "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+        os.path.expanduser("~/.fonts/NotoSansCJK.ttc"),
+        r"C:\Windows\Fonts\msyh.ttc",     # 微软雅黑
+        r"C:\Windows\Fonts\msyh.ttf",
+        r"C:\Windows\Fonts\simhei.ttf",   # 黑体
+        r"C:\Windows\Fonts\simsun.ttc",   # 宋体
+        "/System/Library/Fonts/PingFang.ttc",
+        "/System/Library/Fonts/STHeiti Medium.ttc",
+    ]
+    for fp in candidates:
+        if os.path.exists(fp):
+            try:
+                font_manager.fontManager.addfont(fp)
+                plt.rcParams["font.sans-serif"] = [
+                    font_manager.FontProperties(fname=fp).get_name()]
+                return
+            except Exception:
+                continue
+    plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei", "PingFang SC"]
+
+
+_setup_cjk_font()
 plt.rcParams["axes.unicode_minus"] = False
 
 HERE = os.path.dirname(os.path.abspath(__file__))
